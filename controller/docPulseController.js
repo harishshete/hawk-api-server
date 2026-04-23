@@ -6,6 +6,7 @@ exports.insertDocument = async (req, res, next) =>{
     if(req.body){
         const newDocument = new Document({
             title:req.body.title,
+            link:req.body.link,
             what_changed:req.body.what_changed,
             added_document:req.body.added_document,
             product_name:req.body.product_name,
