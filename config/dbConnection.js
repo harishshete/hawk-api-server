@@ -1,12 +1,24 @@
+const fs = require('fs').promises;
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-//console.log("printing URL variable => " + process.env.URL)
-//console.log("printing LOCAL_URL variable => " + process.env.LOCAL_URL)
-//  /?authSource=admin
-mongoose.connect(process.env.URL, {
-    useNewURLParser: true,
-    useUnifiedTopology: true,
-})
-.then(()=>{console.log("DB Connected...");})
-.catch((err)=>{console.log(err)});
+async function connectToDB(connectionString) {
+  try {
+    await mongoose.connect(connectionString);
+    console.log("DB Connected...");
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function getConnectionString() {
+  try {
+    const data = await fs.readFile(process.env.CRED_FILE_PATH, 'utf8');
+    console.log(data);
+    await connectToDB(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+getConnectionString();
