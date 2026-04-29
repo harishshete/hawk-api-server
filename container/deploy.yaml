@@ -1,11 +1,20 @@
+
 apiVersion: v1
-data:
-  secret.txt: bW9uZ29kYjovL2FkbWluVXNlcjpNb25nb1Bhc3N3b3JkMTIzIUByaGVsNzY2NHNwdDEtMjAxOS5ha2FuYS5yb2d1ZXdhdmUuY29tOjI3MDE3L0RvY1B1bHNlP2F1dGhTb3VyY2U9YWRtaW4K
-kind: Secret
+kind: Service
 metadata:
-  name: hawk-api-secret
+  name: hawk-test-svc
   namespace: hawk
+spec:
+  type: ClusterIP
+  selector:
+    app: hawk-apiserver
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -40,5 +49,3 @@ spec:
       - name: config-volume
         secret: 
           secretName: hawk-api-secret
-
-
