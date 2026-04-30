@@ -3,7 +3,7 @@ const Document = require('../models/docPulse');
 //Create Documents
 exports.insertDocument = async (req, res, next) =>{
     const tags =['added','updated','release_notes', 'critical'];
-    const products = ['akana','blazemeter','p4','perfecto','puppet']
+    const products = ['akana','blazemeter','p4','perfecto','puppet'];
 
     if(req.body && tags.includes(req.body.tag) && products.includes(req.body.product_name)){
         const newDocument = new Document({
@@ -65,7 +65,7 @@ exports.getBydays = async (req, res) => {
         const pastDate = new Date();
         pastDate.setDate(now.getDate() - days);
 
-        console.log(pastDate)
+        //console.log(pastDate)
         const documents = await Document.find({
             product_name: product,
             createdAt: { $gte: pastDate }
@@ -110,7 +110,7 @@ exports.getByDateRange = async (req, res) => {
         const start = new Date(startDate);
         const end = new Date(endDate);
 
-        // Optional: include full end day (till 23:59:59)
+        // include full end day (till 23:59:59)
         end.setHours(23, 59, 59, 999);
 
         // Validate dates
