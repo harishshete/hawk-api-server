@@ -10,14 +10,12 @@ spec:
       protocol: HTTP
       port: 80
       hostname: hawk.k8s.net
-    - name: https
-      protocol: HTTPS
-      port: 443
-      hostname: hawk.k8s.net
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: hawk-credential
+#    - name: https
+#      protocol: HTTPS
+#      port: 443
+#      hostname: hawk.k8s.net
+#      tls:
+#        mode: Terminate
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -33,9 +31,9 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /api
+            value: /
       backendRefs:
-        - name: hawk-svc
+        - name: hawk-test-svc
           port: 3000
     - matches:
         - path:
@@ -46,5 +44,5 @@ spec:
             name: env
             value: test
       backendRefs:
-      - name: hawk-test-svc
+      - name: hawk-test
         port: 3000
