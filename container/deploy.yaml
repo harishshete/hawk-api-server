@@ -34,18 +34,18 @@ spec:
         app: hawk-apiserver
     spec:
       containers:
-      - image: immnan/hawk-apiserver:0.1.0
+      - image: immnan/hawk-apiserver:0.1.2
         name: hawk-apiserver
         ports:
         - containerPort: 3000
         env:  
         - name: CRED_FILE_PATH
-          value: "/etc/hawk-api-server/secret.txt"
+          value: "/etc/hawk-apiserver/secret.txt"
         volumeMounts:
-        - name: config-volume
+        - name: secret-volume
           mountPath: /etc/hawk-apiserver/
           readOnly: true
       volumes:
-      - name: config-volume
+      - name: secret-volume
         secret: 
           secretName: hawk-api-secret
