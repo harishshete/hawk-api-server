@@ -34,7 +34,7 @@ spec:
         app: hawk-apiserver
     spec:
       containers:
-      - image: immnan/hawk-apiserver:0.1.2
+      - image: immnan/hawk-apiserver:0.1.3 
         name: hawk-apiserver
         ports:
         - containerPort: 3000
