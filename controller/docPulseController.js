@@ -79,14 +79,12 @@ exports.getBydays = async (req, res) => {
 
 };
 
-// Fetch last commit id by source name and product name
+// Fetch last commit id by source name
 exports.getLastCommitIdBySourceName = async (req, res) => {
-    const product = req.params.product;
     const source_name = req.params.source_name;
-    
     try {
         const doc = await Document
-            .findOne({ product_name: product, source_name: source_name })
+            .findOne({ source_name: source_name })
             .sort({ createdAt: -1 })
             .select('commit_id -_id');
 
